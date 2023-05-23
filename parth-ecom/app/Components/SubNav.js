@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export default function SubNav() {
   return (
-    <div className='flex flex-row overflow-x-scroll lg:overflow-hidden lg:px-36 space-x-6 lg:space-x-2 justify-between lg:py-2 shadow-xl'>
+    <div className='flex flex-row overflow-x-scroll lg:overflow-hidden lg:px-36 space-x-6 lg:space-x-2 justify-between lg:py-2 shadow-sm'>
     
         <div className='flex flex-col justify-center pl-2 lg:pl-0'>
             <button>
