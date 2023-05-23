@@ -23,7 +23,7 @@ function navbar() {
         </div>
 
         <div>
-          <input className='rounded-sm w-[450px] h-7 xl:h-8 px-2 text-sm' placeholder='Search for Products, Brands and More' />
+          <input className='rounded-sm w-[450px] h-7 xl:h-8 px-2 text-sm focus:outline-none' placeholder='Search for Products, Brands and More' />
         </div>
 
         <div className='space-x-7'>
@@ -92,14 +92,67 @@ function navbar() {
             </button>
 
             <button className='text-white px-5 font-bold' onClick={() => setIsClicked(!isClicked)}>Login</button>
+            {
+        isClicked ?
 
+      <div className='relative z-10' aria-aria-labelledby='Sign-In-Modal' role="dialog" aria-modal="true">
+
+        <div className='fixed inset-0 bg-gray-200 bg-opacity-25 transition-opacity'></div>
+
+        <div className='fixed inset-0 z-10 overflow-y-auto'>
+          <div className='flex min-h-full justify-center p-4 text-center items-center sm:p-0'>
+            <div className='relative transform overflow-hidden bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg'>
+              <div className='bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4'>
+
+                <div className='flex justify-end'>
+                      <button className='text-2xl' onClick={() => setIsClicked(false)}>
+                          <AiOutlineCloseSquare />
+                      </button>
+                </div>
+
+                <div className='w-full'>
+                  <form>
+                    <div className='mb-4'>
+                      <label className='block text-gray-700 text-sm font-bold mb-2' htmlfor="username">
+                        Username
+                      </label>
+                      <input className='shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id="username" type="text" placeholder='Username' />
+                    </div>
+                    <div className='mb-6'>
+                      <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor='password'>
+                        Password
+                      </label>
+                      <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************" />
+                    </div>
+                    <div className='flex items-center justify-between'>
+                      <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                        Sign In
+                      </button>
+                      <a class="inline-block align-baseline font-bold text-sm text-blue-700 hover:text-blue-800" href="#">
+                        Forgot Password?
+                      </a>
+                    </div>
+                  </form>
+                  <p className='text-center text-gray-500 text-xs mt-3'>
+                    &copy;2023 Parth's Production. All rights reserved.
+                  </p>
+                </div>            
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Login Modal End */}
+      </div>
+
+        : ''
+      }
           </div>
 
         </div>
 
 
         <div>
-          <input className='rounded-sm w-full p-1 text-sm' placeholder='Search for products, Brands and More' />
+          <input className='rounded-sm text-gray-700 w-full p-1 text-sm' placeholder='Search for products, Brands and More' />
         </div>
       </div>
 
@@ -166,3 +219,6 @@ function navbar() {
 }
 
 export default navbar
+
+
+// npm i @emotion/cache @emotion/react @emotion/server @emotion/styled
