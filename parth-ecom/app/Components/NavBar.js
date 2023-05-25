@@ -16,7 +16,7 @@ function navbar() {
 
       {/* Large Screen Header */}
 
-      <div className='hidden lg:flex bg-blue-600 h-[60px] md:[70px] p-2 xl:px-10 items-center justify-center space-x-4 xl:space-x-20'>
+      <div className='hidden lg:flex bg-blue-600 h-[60px] md:[70px] p-2 xl:px-10 items-center justify-center space-x-4 xl:space-x-16'>
 
         <div>
           <Image src='/assets/logo.png' width={100} height={10} alt='Logo Image' />
