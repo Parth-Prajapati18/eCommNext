@@ -13,6 +13,7 @@ export default function Home() {
       <Electonics />
       <Beauty />
       <Electonics />
+      <Beauty />
     </div>
   )
 }

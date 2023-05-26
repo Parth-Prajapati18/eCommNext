@@ -69,7 +69,7 @@ export default function Electonics() {
 
     <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 md:gap-x-1 justify-between mx-5 xl:mx-10 mt-5 sm:mt-10 bg-white border border-slate-200 drop-shadow-2xl'>
 
-    <div className='absolute bg-blue-600 text-white -top-[15px] -left-[20px] px-4 py-1 text-sm 2xl:text-lg'>
+    <div className='absolute bg-blue-600 text-white -top-[15px] -left-[20px] px-4 py-1 text-sm 2xl:text-lg transition ease-in-out delay-150 hover:-translate-1 hover:scale-110 duration-300 border-1 border-blue-800'>
             Best of Electronic
         </div>
 

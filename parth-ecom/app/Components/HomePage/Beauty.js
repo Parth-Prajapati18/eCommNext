@@ -69,7 +69,7 @@ export default function Electonics() {
         <Image className='absolute bottom-0 w-auto' src='/assets/BI1.webp' width={240} height={50} alt='Image 1' />
         </div> */}
 
-        <div className='absolute bg-blue-600 text-white -top-[15px] -left-[20px] px-4 py-1 text-sm 2xl:text-lg'>
+        <div className='absolute bg-blue-600 text-white -top-[15px] -left-[20px] px-4 py-1 text-sm 2xl:text-lg transition ease-in-out delay-150 hover:-translate-1 hover:scale-110 duration-300 border-1 border-blue-800'>
             Best of Beauty
         </div>
         
