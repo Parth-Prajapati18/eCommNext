@@ -1,30 +1,12 @@
+"use client"
 import React from 'react';
 import Image from 'next/image';
+import { useContext } from 'react';
+import { CartContext } from '@/app/global/CartContext';
 
 const CartPage = () => {
-    const cartItems = [
-        {
-          id: 1,
-          name: 'Product 1',
-          price: 19.99,
-          quantity: 2,
-          image: '/assets/img1.webp',
-        },
-        {
-          id: 2,
-          name: 'Product 2',
-          price: 29.99,
-          quantity: 1,
-          image: '/assets/img2.webp',
-        },
-        {
-          id: 3,
-          name: 'Product 3',
-          price: 39.99,
-          quantity: 3,
-          image: '/assets/img3.webp',
-        },
-      ];
+    
+  const { cartItems, removeFromCart } = useContext(CartContext);
 
   const totalPrice = cartItems.reduce(
     (accumulator, item) => accumulator + item.price * item.quantity,
@@ -55,7 +37,7 @@ const CartPage = () => {
               <h2 className="text-xl font-bold mb-2">{item.name}</h2>
               <p className="text-gray-600 mb-2">Price: ${item.price}</p>
               <p className="text-gray-600 mb-4">Quantity: {item.quantity}</p>
-              <button className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded">
+              <button onClick={() => removeFromCart(item.id)} className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded">
                 Remove
               </button>
             </div>

@@ -8,6 +8,7 @@ import { CacheProvider } from '@emotion/react';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import createEmotionCache from './theme/createEmotionCache'
 import lightTheme from './theme/lightTheme'
+import { CartProvider } from './global/CartContext'
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -24,11 +25,13 @@ export default function RootLayout({ children, emotionCache = clientSideEmotionC
       <body className={inter.className}>
         <CacheProvider value={emotionCache}>
         <ThemeProvider theme={lightTheme}>
+        <CartProvider>
         <CssBaseline />
         <NavBar />
         <SubNav />
         {children}
         <Footer />
+        </CartProvider>
         </ThemeProvider>
         </CacheProvider>
         </body>

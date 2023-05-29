@@ -1,6 +1,12 @@
+"use client"
 import React from "react"
+import { useContext } from 'react';
+import { CartContext } from '@/app/global/CartContext';
 
 export default function ProductsPage({image, name, id, description, price}) {
+
+  const { cartItems, addToCart } = useContext(CartContext);
+
   return (
      <div
           key={id}
@@ -15,7 +21,7 @@ export default function ProductsPage({image, name, id, description, price}) {
           <p className="text-gray-600 mb-4">{description}</p>
           <div className="flex items-center justify-between">
             <span className="text-lg font-semibold">${price}</span>
-            <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white">
+            <button onClick={() => addToCart(item)} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white">
               Add to Cart
             </button>
           </div>
