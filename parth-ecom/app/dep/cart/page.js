@@ -6,7 +6,7 @@ import { CartContext } from '@/app/global/CartContext';
 
 const CartPage = () => {
     
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, removeFromCart } = useContext(CartContext);
 
   const totalPrice = cartItems.reduce(
     (accumulator, item) => accumulator + item.price * item.quantity,
@@ -37,7 +37,7 @@ const CartPage = () => {
               <h2 className="text-xl font-bold mb-2">{item.name}</h2>
               <p className="text-gray-600 mb-2">Price: ${item.price}</p>
               <p className="text-gray-600 mb-4">Quantity: {item.quantity}</p>
-              <button  className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded">
+              <button onClick={() => removeFromCart(item)} className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded">
                 Remove
               </button>
             </div>
