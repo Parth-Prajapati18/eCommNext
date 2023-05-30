@@ -5,7 +5,16 @@ import { CartContext } from '@/app/global/CartContext';
 
 export default function ProductsPage({image, name, id, description, price}) {
 
-  const { cartItems, addToCart } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
+
+  const item = {
+    image: {image},
+    name: {name},
+    id: {id},
+    description: {description},
+    price: {price},
+    quantity: 1
+  }
 
   return (
      <div

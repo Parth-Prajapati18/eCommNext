@@ -33,7 +33,9 @@ function navbar() {
           <button className='bg-white text-blue-600 font-bold px-6 xl:px-8 py-1 xl:py-2' onClick={() => setIsClicked(!isClicked)}>Login</button>
           <button className='font-bold text-white'>Become a Seller </button>
           <button className='font-bold text-white'>
+            <Link href='/dep/cart' >
             <AiOutlineShoppingCart className='inline-block px-1 text-3xl' />Cart
+            </Link>
           </button>
         </div>
 
@@ -91,7 +93,9 @@ function navbar() {
 
           <div className='space-x-3'>
             <button className='font-bold text-white'>
+            <Link href='/dep/cart' >
               <AiOutlineShoppingCart className='inline-block text-2xl' />
+            </Link>
             </button>
 
             <button className='text-white px-5 font-bold' onClick={() => setIsClicked(!isClicked)}>Login</button>
