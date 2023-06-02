@@ -15,6 +15,7 @@ const CartPage = () => {
 
   const tax = totalPrice * 0.13;
   const totalAmount = totalPrice + tax;
+  
 
   return (
     <div className="container mx-auto p-4">
