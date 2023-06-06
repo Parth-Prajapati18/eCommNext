@@ -2,7 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { useContext } from 'react';
-import { CartContext } from '@/app/global/CartContext';
+import { CartContext } from '@Components/Context/CartContext';
 
 const CartPage = () => {
     

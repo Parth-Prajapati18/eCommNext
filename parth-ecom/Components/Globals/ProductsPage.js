@@ -1,15 +1,13 @@
 "use client"
-import React from "react"
+import React, { useEffect } from "react"
 import { useContext } from 'react';
-import { CartContext } from '@/app/global/CartContext';
+import { CartContext } from '@Components/Context/CartContext';
 import { useState } from "react";
+
 
 export default function ProductsPage({image, name, id, description, price}) {
 
-  const [IsAdded, setIsAdded] = useState(false)
-
-  const { addToCart } = useContext(CartContext);
-
+  const { cartItems, addToCart } = useContext(CartContext);
   const item = {
     image: image,
     name: name,
@@ -18,6 +16,9 @@ export default function ProductsPage({image, name, id, description, price}) {
     price: price,
     quantity: 1,
   }
+
+  const [IsAdded, setIsAdded] = useState(false)
+  
 
   return (
      <div

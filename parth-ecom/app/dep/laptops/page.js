@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductsPage from '@/app/Components/ProductsPage';
+import ProductsPage from '@Components/Globals/ProductsPage';
 
 const ProductList = () => {
   const products = [

@@ -1,10 +1,10 @@
 "use client"
-import './globals.css'
+import '@styles/globals.css';
 import { Inter } from 'next/font/google'
-import NavBar from './Components/NavBar.js'
-import SubNav from './Components/SubNav'
-import Footer from './Components/Footer'
-import { CartProvider } from './global/CartContext'
+import  NavBar  from '@/Components/Globals/NavBar'
+import SubNav from '@/Components/Globals/SubNav'
+import Footer from '@/Components/Globals/Footer'
+import { CartProvider } from '@/Components/Context/CartContext'
 
 
 const inter = Inter({ subsets: ['latin'] })
