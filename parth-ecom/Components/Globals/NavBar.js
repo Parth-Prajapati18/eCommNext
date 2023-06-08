@@ -1,11 +1,12 @@
 "use client"
 import React from 'react'
 import Image from 'next/image'
-import { AiOutlineShoppingCart, AiOutlineSearch , AiOutlineCloseSquare } from 'react-icons/ai'
+import { AiOutlineShoppingCart, AiOutlineCloseSquare } from 'react-icons/ai'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md'
 import { useState } from 'react'
 import Link from 'next/link'
+<<<<<<< HEAD:parth-ecom/app/Components/NavBar.js
 import {connection} from '../lib/db.js'
 
 
@@ -16,6 +17,16 @@ function navbar() {
 
   const [isArrowUp, setIsArrowUp] = useState(false)
   const [ isClicked , setIsClicked ] = useState(false)
+=======
+import { useContext } from 'react'
+import { CartContext } from '@Components/Context/CartContext'
+
+function navbar() {
+
+  const [isArrowUp, setIsArrowUp] = useState(false);
+  const [ isClicked , setIsClicked ] = useState(false);
+  const { totalQuantity} = useContext(CartContext);
+>>>>>>> 687382fe5212c6b6c41be676cac83db83684e8f1:parth-ecom/Components/Globals/NavBar.js
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -66,7 +77,7 @@ function navbar() {
           <button className='font-bold text-white'>Become a Seller </button>
           <button className='font-bold text-white'>
             <Link href='/dep/cart' >
-            <AiOutlineShoppingCart className='inline-block px-1 text-3xl' />Cart
+            <AiOutlineShoppingCart className='inline-block px-1 text-3xl' />Cart ({totalQuantity})
             </Link>
           </button>
         </div>
@@ -126,7 +137,10 @@ function navbar() {
           <div className='space-x-3'>
             <button className='font-bold text-white'>
             <Link href='/dep/cart' >
-              <AiOutlineShoppingCart className='inline-block text-2xl' />
+              <AiOutlineShoppingCart className='inline-block text-2xl' /> 
+              <span className='font-normal'>
+              [{totalQuantity}]
+              </span>
             </Link>
             </button>
 

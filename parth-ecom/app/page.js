@@ -1,7 +1,7 @@
 "use client"
-import './globals.css'
-import Electonics from './Components/HomePage/Electronics'
-import Beauty from './Components/HomePage/Beauty'
+import '@styles/globals.css';
+import Electronics from '@/Components/HomePage/Electronics'
+import Beauty from '@/Components/HomePage/Beauty'
 
 export const  metadata = {
   title: 'PartheComm.com - ParthKart '
@@ -10,9 +10,9 @@ export const  metadata = {
 export default function Home() {
   return (
     <div>
-      <Electonics />
+      <Electronics />
       <Beauty />
-      <Electonics />
+      <Electronics />
       <Beauty />
     </div>
   )

@@ -1,14 +1,12 @@
 "use client"
-import React from "react"
-import { useContext } from 'react';
-import { CartContext } from '@/app/global/CartContext';
+import { useContext, useEffect } from 'react';
+import { CartContext } from '@Components/Context/CartContext';
 import { useState } from "react";
+
 
 export default function ProductsPage({image, name, id, description, price}) {
 
-  const [IsAdded, setIsAdded] = useState(false)
-
-  const { addToCart } = useContext(CartContext);
+  const { cartItems, addToCart } = useContext(CartContext);
 
   const item = {
     image: image,
@@ -18,6 +16,18 @@ export default function ProductsPage({image, name, id, description, price}) {
     price: price,
     quantity: 1,
   }
+
+  const [IsAdded, setIsAdded] = useState(false);
+
+  useEffect(() => {
+
+    cartItems.map((item)=> { 
+      if (item["id"] === id) {
+        setIsAdded(true);   
+      }
+    } );
+
+  }, [cartItems])
 
   return (
      <div
@@ -33,7 +43,7 @@ export default function ProductsPage({image, name, id, description, price}) {
           <p className="text-gray-600 mb-4">{description}</p>
           <div className="flex items-center justify-between">
             <span className="text-lg font-semibold">${price}</span>
-            <button onClick={() => { addToCart(item); setIsAdded(true);}} className={`px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white ${ IsAdded ? 'bg-blue-300 cursor-not-allowed hover:bg-blue-300': '' }`} disabled={IsAdded} >
+            <button onClick={() => { addToCart(item); setIsAdded(true);}} className={`px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white ${ IsAdded ? 'bg-blue-200 border border-blue-300  cursor-not-allowed hover:bg-blue-200': '' }`} disabled={IsAdded} >
               { IsAdded ? 'Added to Cart' :  'Add to Cart' }
             </button>
           </div>
