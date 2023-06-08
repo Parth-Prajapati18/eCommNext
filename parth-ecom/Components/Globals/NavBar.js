@@ -6,27 +6,15 @@ import { RxHamburgerMenu } from 'react-icons/rx'
 import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md'
 import { useState } from 'react'
 import Link from 'next/link'
-<<<<<<< HEAD:parth-ecom/app/Components/NavBar.js
-import {connection} from '../lib/db.js'
-
-
-function navbar() {
-
-  const [email, setEmail] = useState('');
-  const [password, setPassoerd] = useState('');
-
-  const [isArrowUp, setIsArrowUp] = useState(false)
-  const [ isClicked , setIsClicked ] = useState(false)
-=======
 import { useContext } from 'react'
 import { CartContext } from '@Components/Context/CartContext'
+import './NavBar.css'
 
 function navbar() {
 
   const [isArrowUp, setIsArrowUp] = useState(false);
   const [ isClicked , setIsClicked ] = useState(false);
   const { totalQuantity} = useContext(CartContext);
->>>>>>> 687382fe5212c6b6c41be676cac83db83684e8f1:parth-ecom/Components/Globals/NavBar.js
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -83,27 +71,21 @@ function navbar() {
         </div>
 
         {/* Drop Down Menu */}
-        <div className='relative inline-block'>
+        <div className='relative h-full dropdown flex items-center'>
           <div>
-            <button className='font-bold text-white' onClick={() => setIsArrowUp(!isArrowUp)}>More {isArrowUp ? <MdArrowDropUp className='inline text-2xl' /> : <MdArrowDropDown className='inline text-2xl' />} </button>
+            <button className='font-bold text-white h-full' onMouseMove={() => setIsArrowUp(false)}  onClick={() => setIsArrowUp(!isArrowUp)} >More {isArrowUp ? <MdArrowDropUp className='inline text-2xl' /> : <MdArrowDropDown className='inline text-2xl' />} </button>
           </div>
+          <div className="hidden dropdown-content absolute -right-20 z-10 top-[45px] w-56 origin-top-right bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                <div className="py-1" role="none">
 
-          {
-            isArrowUp ?
-
-              <div class="absolute -right-20 z-10 top-[43px] w-56 origin-top-right bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                <div class="py-1" role="none">
-
-                  <a href="#" class="text-gray-700 block px-4 py-2 text-sm text-center" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>
-                  <a href="#" class="text-gray-700 block px-4 py-2 text-sm text-center" role="menuitem" tabindex="-1" id="menu-item-1">Support</a>
-                  <a href="#" class="text-gray-700 block px-4 py-2 text-sm text-center" role="menuitem" tabindex="-1" id="menu-item-2">License</a>
+                  <a href="#" className="text-gray-700 block px-4 py-2 text-sm text-center" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>
+                  <a href="#" className="text-gray-700 block px-4 py-2 text-sm text-center" role="menuitem" tabindex="-1" id="menu-item-1">Support</a>
+                  <a href="#" className="text-gray-700 block px-4 py-2 text-sm text-center" role="menuitem" tabindex="-1" id="menu-item-2">License</a>
                   <form method="POST" action="#" role="none">
-                    <button type="submit" class="text-red-700 block w-full px-4 py-2 text-sm text-center" role="menuitem" tabindex="-1" id="menu-item-3">Sign out</button>
+                    <button type="submit" className="text-red-700 block w-full px-4 py-2 text-sm text-center" role="menuitem" tabindex="-1" id="menu-item-3">Sign out</button>
                   </form>
                 </div>
-              </div> :
-              ''
-          }
+          </div> 
         </div>
 
 
@@ -178,10 +160,10 @@ function navbar() {
                       <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************" />
                     </div>
                     <div className='flex items-center justify-between'>
-                      <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                      <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                         Sign In
                       </button>
-                      <a class="inline-block align-baseline font-bold text-sm text-blue-700 hover:text-blue-800" href="#">
+                      <a className="inline-block align-baseline font-bold text-sm text-blue-700 hover:text-blue-800" href="#">
                         Forgot Password?
                       </a>
                     </div>
@@ -244,10 +226,10 @@ function navbar() {
                       <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" value={password} placeholder="******************" />
                     </div>
                     <div className='flex items-center justify-between'>
-                      <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                      <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                         Sign In
                       </button>
-                      <a class="inline-block align-baseline font-bold text-sm text-blue-700 hover:text-blue-800" href="#">
+                      <a className="inline-block align-baseline font-bold text-sm text-blue-700 hover:text-blue-800" href="#">
                         Forgot Password?
                       </a>
                     </div>
