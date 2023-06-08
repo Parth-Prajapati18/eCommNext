@@ -71,21 +71,20 @@ function navbar() {
         </div>
 
         {/* Drop Down Menu */}
-        <div className='relative h-full dropdown flex items-center'>
-          <div>
-            <button className='font-bold text-white h-full' onMouseMove={() => setIsArrowUp(false)}  onClick={() => setIsArrowUp(!isArrowUp)} >More {isArrowUp ? <MdArrowDropUp className='inline text-2xl' /> : <MdArrowDropDown className='inline text-2xl' />} </button>
-          </div>
-          <div className="hidden dropdown-content absolute -right-20 z-10 top-[45px] w-56 origin-top-right bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                <div className="py-1" role="none">
+        <div className='relative inline-block'>
 
-                  <a href="#" className="text-gray-700 block px-4 py-2 text-sm text-center" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>
-                  <a href="#" className="text-gray-700 block px-4 py-2 text-sm text-center" role="menuitem" tabindex="-1" id="menu-item-1">Support</a>
-                  <a href="#" className="text-gray-700 block px-4 py-2 text-sm text-center" role="menuitem" tabindex="-1" id="menu-item-2">License</a>
+            <button className='font-bold text-white h-full' onClick={() => setIsArrowUp(!isArrowUp)} >More {isArrowUp ? <MdArrowDropUp className='inline text-2xl' /> : <MdArrowDropDown className='inline text-2xl' />} </button>       
+            <div className="hidden absolute -right-20 z-10 top-[53px] w-60 shadow-lg ring-1 ring-black" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                <div className="py-1" role="none">
+                  <a href="#" className="text-gray-700 block px-4 py-2 text-sm text-center hover:bg-gray-100" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>
+                  <a href="#" className="text-gray-700 block px-4 py-2 text-sm text-center hover:bg-gray-100" role="menuitem" tabindex="-1" id="menu-item-1">Support</a>
+                  <a href="#" className="text-gray-700 block px-4 py-2 text-sm text-center hover:bg-gray-100" role="menuitem" tabindex="-1" id="menu-item-2">License</a>
                   <form method="POST" action="#" role="none">
-                    <button type="submit" className="text-red-700 block w-full px-4 py-2 text-sm text-center" role="menuitem" tabindex="-1" id="menu-item-3">Sign out</button>
+                    <button type="submit" className="text-red-700 block w-full px-4 py-2 text-sm text-center hover:bg-gray-100" role="menuitem" tabindex="-1" id="menu-item-3">Sign out</button>
                   </form>
                 </div>
-          </div> 
+            </div> 
+
         </div>
 
 
