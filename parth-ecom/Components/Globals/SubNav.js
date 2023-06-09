@@ -80,7 +80,7 @@ export default function SubNav() {
     
         <div className='flex flex-col justify-center'>
             <button>
-            <Link href='beautyntoys'>
+            <Link href='/dep/beautyntoys'>
             <Image src='/assets/img9.webp' width={70} height={30} alt='Grocery' />
             <p className='text-sm font-bold text-gray-900 text-center'>Beauty & Toys</p>
             </Link>

@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
 import { AiOutlineShoppingCart, AiOutlineCloseSquare } from 'react-icons/ai'
 import { RxHamburgerMenu } from 'react-icons/rx'
@@ -48,7 +48,7 @@ function navbar() {
 
       {/* Large Screen Header */}
 
-      <div className='hidden lg:flex bg-blue-600 h-[60px] md:[70px] p-2 xl:px-10 items-center justify-center space-x-4 xl:space-x-16'>
+      <div className='hidden lg:flex bg-blue-600 h-[60px] md:h-[70px] p-2 xl:px-10 items-center justify-center space-x-4 xl:space-x-16'>
 
         <div>
           <Link href='/'>
@@ -70,25 +70,28 @@ function navbar() {
           </button>
         </div>
 
-        {/* Drop Down Menu */}
-        <div className='relative inline-block'>
-
-            <button className='font-bold text-white h-full' onClick={() => setIsArrowUp(!isArrowUp)} >More {isArrowUp ? <MdArrowDropUp className='inline text-2xl' /> : <MdArrowDropDown className='inline text-2xl' />} </button>       
-            <div className="hidden absolute -right-20 z-10 top-[53px] w-60 shadow-lg ring-1 ring-black" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                <div className="py-1" role="none">
-                  <a href="#" className="text-gray-700 block px-4 py-2 text-sm text-center hover:bg-gray-100" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>
-                  <a href="#" className="text-gray-700 block px-4 py-2 text-sm text-center hover:bg-gray-100" role="menuitem" tabindex="-1" id="menu-item-1">Support</a>
-                  <a href="#" className="text-gray-700 block px-4 py-2 text-sm text-center hover:bg-gray-100" role="menuitem" tabindex="-1" id="menu-item-2">License</a>
+ 
+        <div className='relative inline-block h-[60px] md:h-[70px]'  onMouseOver={ () => setIsArrowUp(true) } onMouseOut={ () => setIsArrowUp(false) }   >
+            <button className='font-bold text-white h-full' onClick={ () => setIsArrowUp(!isArrowUp) } >More {isArrowUp ? <MdArrowDropUp className='inline text-2xl' /> : <MdArrowDropDown className='inline text-2xl' />} </button>       
+              {/* Drop Down Menu */}
+      { isArrowUp ?           
+            <div className="absolute -right-20 z-10 top-[60px] md:top-[70px] w-60 shadow-lg  bg-white broder border-gray-100" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+                <div className="pb-1" role="none">
+                  <a href="#" className="text-gray-700 block px-4 py-2 text-sm text-center hover:bg-gray-100 border border-gray-100" role="menuitem" tabIndex="-1" id="menu-item-0">Account settings</a>
+                  <a href="#" className="text-gray-700 block px-4 py-2 text-sm text-center hover:bg-gray-100 border border-gray-100" role="menuitem" tabIndex="-1" id="menu-item-1">Support</a>
+                  <a href="#" className="text-gray-700 block px-4 py-2 text-sm text-center hover:bg-gray-100 border border-gray-100" role="menuitem" tabIndex="-1" id="menu-item-2">License</a>
                   <form method="POST" action="#" role="none">
-                    <button type="submit" className="text-red-700 block w-full px-4 py-2 text-sm text-center hover:bg-gray-100" role="menuitem" tabindex="-1" id="menu-item-3">Sign out</button>
+                    <button type="submit" className="text-red-700 block w-full px-4 py-2 text-sm text-center hover:bg-gray-100 border border-gray-100" role="menuitem" tabIndex="-1" id="menu-item-3">Sign out</button>
                   </form>
                 </div>
-            </div> 
-
+            </div>
+            :
+             <></>
+            }
+      {/* Drop Down End */}
         </div>
 
-
-        {/* Drop Down End */}
+    
 
       </div>
 
@@ -216,13 +219,13 @@ function navbar() {
                       <label className='block text-gray-700 text-sm font-bold mb-2' htmlfor="username">
                         Username
                       </label>
-                      <input className='shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id="username" type="text" value={email} placeholder='Username' />
+                      <input className='shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id="username" type="text"  placeholder='Username' />
                     </div>
                     <div className='mb-6'>
                       <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor='password'>
                         Password
                       </label>
-                      <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" value={password} placeholder="******************" />
+                      <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************" />
                     </div>
                     <div className='flex items-center justify-between'>
                       <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
