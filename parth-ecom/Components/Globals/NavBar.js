@@ -1,5 +1,5 @@
 "use client"
-import React  from 'react'
+import React from 'react'
 import Image from 'next/image'
 import { AiOutlineShoppingCart, AiOutlineCloseSquare } from 'react-icons/ai'
 import { RxHamburgerMenu } from 'react-icons/rx'
@@ -10,6 +10,7 @@ import { useContext } from 'react'
 import { CartContext } from '@Components/Context/CartContext'
 import './NavBar.css'
 import axios from 'axios';
+import { Router } from 'express'
 
 
 function navbar() {
@@ -17,16 +18,28 @@ function navbar() {
   const [isArrowUp, setIsArrowUp] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const { totalQuantity } = useContext(CartContext);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
-  const onSubmit = async (data) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const response = await axios.post('/api/register', data);
-      console.log(response.data);
-    } catch (error) {
-      setErrorMessage(error.response.data.message);
-    }
-  };
+      const response = await axios.post('/api/register', { username, password });
+      setMessage(response.data.message);
+      setError('');
 
+    } catch (error) {
+      setError(error.response.data.message);
+      setMessage('');
+    }
+
+    setTimeout(() => setIsClicked(false), 2000 );
+
+    
+ };
 
   return (
     <>
@@ -202,18 +215,20 @@ function navbar() {
                     </div>
 
                     <div className='w-full'>
-                      <form onSubmit={onSubmit}>
+                      <form onSubmit={handleSubmit} >
                         <div className='mb-4'>
                           <label className='block text-gray-700 text-sm font-bold mb-2' htmlfor="username" >
                             Username
                           </label>
-                          <input className='shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id="username" type="text" placeholder='Username' name='username' />
+                          <input className='shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id="username" type="text" placeholder='Username' value={username}
+                            onChange={(e) => setUsername(e.target.value)} />
                         </div>
                         <div className='mb-6'>
                           <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor='password'>
                             Password
                           </label>
-                          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************" name='password' />
+                          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************" value={password}
+                            onChange={(e) => setPassword(e.target.value)} />
                         </div>
                         <div className='flex items-center justify-between'>
                           <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
@@ -224,6 +239,9 @@ function navbar() {
                           </a>
                         </div>
                       </form>
+
+                      {message && <p className='text-green-400 p-1'>{message}</p>}
+                      {error && <p className='text-red-400 p-1'>{error}</p>}
                       <p className='text-center text-gray-500 text-xs mt-3'>
                         &copy;2023 Parth's Production. All rights reserved.
                       </p>
