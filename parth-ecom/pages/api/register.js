@@ -1,17 +1,16 @@
 import {connection} from './lib/db.js'
 
 export default function handler(req, res) {
+
     const { username, password } = req.body;
-
-    connection.connect();
-
     const query = 'INSERT INTO user_login (user_email, user_password) VALUES (? , ?)' ;
     const values = [username, password];
+
+    connection.connect();
 
     connection.query(query, values, (error, results) => {
         if (error) {
           console.error('Error inserting login data: ', error);
-          res.status(500).json({ message: 'Error inserting login data' });
         } else {
           res.status(200).json({ message: 'Login data inserted successfully' });
         }
@@ -19,9 +18,6 @@ export default function handler(req, res) {
 
     connection.end();
 }
-
-
-
 
 
 
