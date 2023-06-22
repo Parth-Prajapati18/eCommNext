@@ -16,6 +16,10 @@ export const CartProvider = ({children}) => {
         setCartItems((prevItems) => prevItems.filter((prevItem) => prevItem.id !== item.id));
       };
 
+      const removeAll = () => {
+        setCartItems([]);
+      };
+
       const totalQuantity = cartItems.reduce(
         (accumulator, item) => accumulator + item.quantity, 0
       );
@@ -94,7 +98,7 @@ export const CartProvider = ({children}) => {
       ]; 
 
     return (
-    <CartContext.Provider value={ {cartItems, addToCart, removeFromCart, totalQuantity, products }}>
+    <CartContext.Provider value={ {cartItems, addToCart, removeFromCart, totalQuantity, products, removeAll}}>
         {children}
     </CartContext.Provider>
     );

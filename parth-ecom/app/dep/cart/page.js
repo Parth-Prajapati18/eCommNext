@@ -3,10 +3,12 @@ import React from 'react';
 import Image from 'next/image';
 import { useContext } from 'react';
 import { CartContext } from '@Components/Context/CartContext';
+import { useRouter } from 'next/navigation';
 
 const CartPage = () => {
-    
-  const { cartItems, removeFromCart } = useContext(CartContext);
+
+  const router = useRouter();    
+  const { cartItems, removeFromCart, removeAll } = useContext(CartContext);
 
   const totalPrice = cartItems.reduce(
     (accumulator, item) => accumulator + item.price * item.quantity,
@@ -46,6 +48,7 @@ const CartPage = () => {
         </div>
       )}
       {cartItems.length > 0 && (
+        <>
         <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
           <div className="flex justify-between">
             <p className="text-gray-600">Total Price:</p>
@@ -60,6 +63,14 @@ const CartPage = () => {
             <p className="font-bold">${totalAmount.toFixed(2)}</p>
           </div>
         </div>
+
+        <div className='my-8 flex justify-end'>
+              <button onClick={() => { router.push('/dep/order'), removeAll() }} className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded">
+                Place Order
+              </button>
+        </div>
+        
+        </>
       )}
     </div>
   );
