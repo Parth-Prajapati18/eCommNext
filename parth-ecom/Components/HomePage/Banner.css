@@ -1,0 +1,6 @@
+.banner::after{
+    content: 'Discover a vast selection of high-quality products at your fingertips, coupled with a seamless shopping experience that ensures your needs are met with utmost ease and satisfaction.';
+    color: whitesmoke;
+    font-size: small;
+
+}

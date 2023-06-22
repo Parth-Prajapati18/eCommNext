@@ -4,8 +4,6 @@ export default function handler(req,res){
 
     const { username, password} = req.body; 
     const query = 'SELECT user_email, user_password FROM user_login WHERE user_email=? AND user_password=?' ;
-    const values = [username, password];
-
     connection.connect();
 
     connection.query(query, [username, password], (error, results) => {
@@ -19,7 +17,7 @@ export default function handler(req,res){
     
       // Close the MySQL connection
       connection.end();
-    
-
-
 }
+
+//johnsmith@gmail.com
+//password
