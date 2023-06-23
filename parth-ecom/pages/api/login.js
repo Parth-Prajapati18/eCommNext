@@ -6,7 +6,7 @@ export default function handler(req,res){
     const query = 'SELECT user_email, user_password FROM user_login WHERE user_email=? AND user_password=?' ;
     connection.connect();
 
-    connection.query(query, [username, password], (error, results) => {
+    connection.query(query, [username, password], (error) => {
         if (error) {
           console.error('Error inserting login data: ', error);
           res.status(500).json({ message: 'Invalid/User Do not exist' });

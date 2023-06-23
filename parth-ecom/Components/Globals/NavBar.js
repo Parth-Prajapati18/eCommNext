@@ -20,6 +20,8 @@ function navbar() {
   const [isArrowUp, setIsArrowUp] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [isClicked2, setIsClicked2] = useState(false);
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [err, setErr] = useState('');
@@ -29,14 +31,13 @@ function navbar() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
+    //Email Start
     const sendEmail = async () => {
       const emailData = {
         email: username,
-        subject: 'PartheComm',
-        message: `Hello \nThis is the email body \n Email: ${username} \n Pass:${password}`,
+        subject: 'PartheComM - Sign-up successful',
+        message: `Hello ${firstname}, \nWelcome to our e-commerce store! Get ready to discover a world of exceptional products and seamless shopping, tailored just for you.`,
       };
-
       try {
         await axios.post('/api/sendEmail', emailData);
         console.log('Email sent successfully');
@@ -44,34 +45,25 @@ function navbar() {
         console.error('Error sending email:', error);
       }
     };
-
+    //Email end 
 
     try {
-      const response = await axios.post('/api/register', { username, password });
-
-
-
+      const response = await axios.post('/api/register', { username, password, firstname, lastname });
       if (response.status === 200) {
         router.push('/dep/laptops');
-
-        //Email send start
-
         sendEmail();
-
-        //Email send end
-
-
       }
     } catch (error) {
       setErr(error)
-
     }
+
     setTimeout(() => setIsClicked2(false), 2000);
   };
 
+
+
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post('/api/login', { username, password });
       setMsg(response.data.message);
@@ -101,11 +93,16 @@ function navbar() {
         </div>
 
         <div className='space-x-7'>
-          <button className='bg-white text-blue-600 font-bold px-6 xl:px-8 py-1 xl:py-2' onClick={() => setIsClicked(!isClicked)}>Login</button>
-          <button className='font-bold text-white' onClick={() => setIsClicked2(!isClicked2)}>Become a Seller </button>
+          <button className='bg-white text-blue-600 font-bold px-6 xl:px-8 py-1 xl:py-2' onClick={() => setIsClicked(!isClicked)}>Sign In</button>
+          <button className='font-bold text-white' onClick={() => setIsClicked2(!isClicked2)}>Sign Up </button>
           <button className='font-bold text-white'>
             <Link href='/dep/cart' >
-              <AiOutlineShoppingCart className='inline-block px-1 text-3xl' />Cart ({totalQuantity})
+              <AiOutlineShoppingCart className='inline-block px-1 text-3xl' />Cart 
+              {totalQuantity > 0 && (
+              <span className="bg-red-600 rounded-full px-1.5 py-0.5 text-white text-xs ml-1">
+                {totalQuantity}
+              </span>
+            )}
             </Link>
           </button>
         </div>
@@ -162,8 +159,8 @@ function navbar() {
             <button className='font-bold text-white'>
               <Link href='/dep/cart' >
                 <AiOutlineShoppingCart className='inline-block text-2xl' />
-                <span className='font-normal'>
-                  [{totalQuantity}]
+                <span className="bg-red-600 rounded-full px-1.5 py-0.5 text-white text-xs ml-1">
+                {totalQuantity}
                 </span>
               </Link>
             </button>
@@ -234,65 +231,88 @@ function navbar() {
       </div>
 
       {/* Login Pop Start Big Screen*/}
-      {
-        isClicked ?
-          <div className='relative z-10' aria-aria-labelledby='Sign-In-Modal' role="dialog" aria-modal="true">
+      {isClicked && (
+        <div
+          className="fixed inset-0 z-10 overflow-y-auto"
+          aria-labelledby="Sign-In-Modal"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="fixed inset-0 bg-gray-200 bg-opacity-25 transition-opacity overflow-hidden"></div>
 
-            <div className='fixed inset-0 bg-gray-200 bg-opacity-25 transition-opacity'></div>
+          <div className="flex min-h-full justify-center p-4 text-center items-center sm:p-0">
+            <div className="relative transform overflow-hidden bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+              <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                <div className="flex justify-end">
+                  <button className="text-2xl" onClick={() => setIsClicked(false)}>
+                    <AiOutlineCloseSquare />
+                  </button>
+                </div>
 
-            <div className='fixed inset-0 z-10 overflow-y-auto'>
-              <div className='flex min-h-full justify-center p-4 text-center items-center sm:p-0'>
-                <div className='relative transform overflow-hidden bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg'>
-                  <div className='bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4'>
-
-                    <div className='flex justify-end'>
-                      <button className='text-2xl' onClick={() => setIsClicked(false)}>
-                        <AiOutlineCloseSquare />
+                <div className="w-full">
+                  <form onSubmit={handleLogin}>
+                    <div className="mb-4">
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="username"
+                      >
+                        Username
+                      </label>
+                      <input
+                        className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="username"
+                        type="text"
+                        placeholder="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                      />
+                    </div>
+                    <div className="mb-6">
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="password"
+                      >
+                        Password
+                      </label>
+                      <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                        id="password"
+                        type="password"
+                        placeholder="******************"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <button
+                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        type="submit"
+                      >
+                        Sign In
                       </button>
+                      <a
+                        className="inline-block align-baseline font-bold text-sm text-blue-700 hover:text-blue-800"
+                        href="#"
+                      >
+                        Forgot Password?
+                      </a>
                     </div>
-
-                    <div className='w-full'>
-                      <form onSubmit={handleLogin}>
-                        <div className='mb-4'>
-                          <label className='block text-gray-700 text-sm font-bold mb-2' htmlfor="username" >
-                            Username
-                          </label>
-                          <input className='shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id="username" type="text" placeholder='Username' value={username}
-                            onChange={(e) => setUsername(e.target.value)} />
-                        </div>
-                        <div className='mb-6'>
-                          <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor='password'>
-                            Password
-                          </label>
-                          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************" value={password}
-                            onChange={(e) => setPassword(e.target.value)} />
-                        </div>
-                        <div className='flex items-center justify-between'>
-                          <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                            Sign In
-                          </button>
-                          <a className="inline-block align-baseline font-bold text-sm text-blue-700 hover:text-blue-800" href="#">
-                            Forgot Password?
-                          </a>
-                        </div>
-                      </form>
-                      {err && <p className='text-red-300 p-1'>err</p>}
-                      {msg && <p className='text-green-300 p-1'>{msg}</p>}
-                      <p className='text-center text-gray-500 text-xs mt-3'>
-                        &copy;2023 Parth's Production. All rights reserved.
-                      </p>
-                    </div>
-                  </div>
+                  </form>
+                  {err && <p className="text-red-300 p-1">{err}</p>}
+                  {msg && <p className="text-green-300 p-1">{msg}</p>}
+                  <p className="text-center text-gray-500 text-xs mt-3">
+                    &copy;2023 Parth's Production. All rights reserved.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-          : ''
-      }
+        </div>
+      )}
       {/* Login Pop end Big Screen*/}
 
 
-      {/* Become a seller Start Big Screen*/}
+      {/* Sign Up Start Big Screen*/}
 
       {
         isClicked2 &&
@@ -307,14 +327,26 @@ function navbar() {
                       <AiOutlineCloseSquare />
                     </button>
                   </div>
-                  <h1 className='text-xl text-center'>
+                  <h1 className='block text-gray-700 text-xl font-bold mb-3 text-center'>
                     User Registration
                   </h1>
                   <div className='w-full'>
                     <form onSubmit={handleSubmit} >
+                      <div className='flex flex-column'>
+                        <div>
+                          <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor='firstname'>First Name</label>
+                          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline mr-2" id='firstname' value={firstname}
+                            onChange={(e) => setFirstname(e.target.value)} />
+                        </div>
+                        <div>
+                          <label className='block text-gray-700 text-sm font-bold mb-2 ml-2' htmlform='lastname'>Last Name</label>
+                          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline ml-2" id='lastname' value={lastname}
+                            onChange={(e) => setLastname(e.target.value)} />
+                        </div>
+                      </div>
                       <div className='mb-4'>
                         <label className='block text-gray-700 text-sm font-bold mb-2' htmlfor="username" >
-                          Username
+                          Email
                         </label>
                         <input className='shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id="username" type="text" value={username}
                           onChange={(e) => setUsername(e.target.value)} />
@@ -323,7 +355,7 @@ function navbar() {
                         <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor='password'>
                           Password
                         </label>
-                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" value={password} placeholder='password'
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" value={password}
                           onChange={(e) => setPassword(e.target.value)} />
                       </div>
                       <div className='flex items-center justify-center'>
