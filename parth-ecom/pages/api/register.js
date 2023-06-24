@@ -2,13 +2,13 @@ import {connection} from './lib/db.js'
 
 export default function handler(req, res) {
 
-    const { username, password } = req.body;
-    const query = 'INSERT INTO user_login (user_email, user_password) VALUES (? , ?)' ;
-    const values = [username, password];
+    const { username, password, firstname, lastname } = req.body;
+    const query = 'INSERT INTO user_login (user_email, user_password, firstname, lastname) VALUES (? , ?, ? , ?)' ;
+    const values = [username, password, firstname, lastname];
 
     connection.connect();
 
-    connection.query(query, values, (error, results) => {
+    connection.query(query, values, (error) => {
         if (error) {
           console.error('Error inserting login data: ', error);
         } else {
