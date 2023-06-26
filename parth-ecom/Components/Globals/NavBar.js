@@ -12,7 +12,6 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
 
-
 function navbar() {
 
   const router = useRouter();
@@ -60,19 +59,30 @@ function navbar() {
     setTimeout(() => setIsClicked2(false), 2000);
   };
 
-
-
   const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
       const response = await axios.post('/api/login', { username, password });
-      setMsg(response.data.message);
+
+      if (response.status === 200) {
+        const { token } = response.data;
+        localStorage.setItem('token', token);
+        setMsg(response.data.Message);
+      } else {
+        setErr(response.data.Message);
+        setMsg('');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setErr('An error occurred during login.');
+      setMsg('');
     }
-    catch (error) {
-      setErr(response.data.message);
-      setMsg("");
-    }
-  }
+
+    setTimeout(() => setIsClicked(false), 2000);
+  };
+
+  
 
 
   return (
@@ -97,12 +107,12 @@ function navbar() {
           <button className='font-bold text-white' onClick={() => setIsClicked2(!isClicked2)}>Sign Up </button>
           <button className='font-bold text-white'>
             <Link href='/dep/cart' >
-              <AiOutlineShoppingCart className='inline-block px-1 text-3xl' />Cart 
+              <AiOutlineShoppingCart className='inline-block px-1 text-3xl' />Cart
               {totalQuantity > 0 && (
-              <span className="bg-red-600 rounded-full px-1.5 py-0.5 text-white text-xs ml-1">
-                {totalQuantity}
-              </span>
-            )}
+                <span className="bg-red-600 rounded-full px-1.5 py-0.5 text-white text-xs ml-1">
+                  {totalQuantity}
+                </span>
+              )}
             </Link>
           </button>
         </div>
@@ -160,7 +170,7 @@ function navbar() {
               <Link href='/dep/cart' >
                 <AiOutlineShoppingCart className='inline-block text-2xl' />
                 <span className="bg-red-600 rounded-full px-1.5 py-0.5 text-white text-xs ml-1">
-                {totalQuantity}
+                  {totalQuantity}
                 </span>
               </Link>
             </button>
