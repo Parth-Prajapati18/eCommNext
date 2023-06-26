@@ -26,7 +26,7 @@ export default async function handler(req, res) {
         }
 
         const token = jwt.sign({ userId: userLog.user_Id }, process.env.JWT_SECRET, {
-          expiresIn: '1h',
+          expiresIn: '60s',
         });
 
         return res.status(200).json({ Message: "User Successfully Logged In!", token });

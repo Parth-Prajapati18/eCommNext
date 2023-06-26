@@ -2,6 +2,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { AiOutlineShoppingCart, AiOutlineCloseSquare } from 'react-icons/ai'
+import { CgProfile } from 'react-icons/cg'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md'
 import { useState, useContext } from 'react'
@@ -67,7 +68,7 @@ function navbar() {
 
       if (response.status === 200) {
         const { token } = response.data;
-        localStorage.setItem('token', token);
+        localStorage.setItem('token-PartheComm', token);
         setMsg(response.data.Message);
       } else {
         setErr(response.data.Message);
@@ -118,8 +119,9 @@ function navbar() {
         </div>
 
 
+                
         <div className='relative inline-block h-[60px] md:h-[70px]' onMouseOver={() => setIsArrowUp(true)} onMouseOut={() => setIsArrowUp(false)}   >
-          <button className='font-bold text-white h-full' onClick={() => setIsArrowUp(!isArrowUp)} >More {isArrowUp ? <MdArrowDropUp className='inline text-2xl' /> : <MdArrowDropDown className='inline text-2xl' />} </button>
+          <button className='font-bold text-white h-full' onClick={() => setIsArrowUp(!isArrowUp)} > <CgProfile className='inline text-2xl' /> {isArrowUp ? <MdArrowDropUp className='inline text-2xl' /> : <MdArrowDropDown className='inline text-2xl' />} </button>
           {/* Drop Down Menu */}
           {isArrowUp ?
             <div className="absolute -right-20 z-10 top-[60px] md:top-[70px] w-60 shadow-lg  bg-white broder border-gray-100" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
