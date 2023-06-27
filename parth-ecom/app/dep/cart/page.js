@@ -4,11 +4,28 @@ import Image from 'next/image';
 import { useContext } from 'react';
 import { CartContext } from '@Components/Context/CartContext';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 const CartPage = () => {
 
   const router = useRouter();    
   const { cartItems, removeFromCart, removeAll } = useContext(CartContext);
+
+  const handleOrder = () => {
+    
+    cartItems.map( async (item) => {
+      try {
+        await axios.post('/api/updateProduct', item["id"])
+        console.log("Item removed:", item)
+      } catch (error) {
+        console.log("Error updating quantity:", error)
+      }
+    });
+
+    router.push('/dep/order'), 
+
+    removeAll()
+  };
 
   const totalPrice = cartItems.reduce(
     (accumulator, item) => accumulator + item.price * item.quantity,
@@ -65,7 +82,7 @@ const CartPage = () => {
         </div>
 
         <div className='my-8 flex justify-end'>
-              <button onClick={() => { router.push('/dep/order'), removeAll() }} className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded">
+              <button onClick={handleOrder} className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded">
                 Place Order
               </button>
         </div>
