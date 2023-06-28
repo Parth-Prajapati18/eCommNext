@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation';
 function navbar() {
 
   const router = useRouter();
-  const { totalQuantity } = useContext(CartContext);
+  const { totalQuantity, isSignIn, setIsSignIn } = useContext(CartContext);
   const [isArrowUp, setIsArrowUp] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [isClicked2, setIsClicked2] = useState(false);
@@ -50,7 +50,7 @@ function navbar() {
     try {
       const response = await axios.post('/api/register', { username, password, firstname, lastname });
       if (response.status === 200) {
-        router.push('/dep/laptops');
+        router.push('/');
         sendEmail();
       }
     } catch (error) {
@@ -62,12 +62,11 @@ function navbar() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post('/api/login', { username, password });
-
       if (response.status === 200) {
         const { token } = response.data;
+        setIsSignIn(true);
         localStorage.setItem('token-PartheComm', token);
         setMsg(response.data.Message);
       } else {
@@ -79,18 +78,13 @@ function navbar() {
       setErr('An error occurred during login.');
       setMsg('');
     }
-
     setTimeout(() => setIsClicked(false), 2000);
   };
 
-  
-
-
   return (
     <>
-
+      {console.log(isSignIn)}
       {/* Large Screen Header */}
-
       <div className='hidden lg:flex bg-blue-600 h-[60px] md:h-[70px] p-2 xl:px-10 items-center justify-center space-x-4 xl:space-x-16'>
 
         <div>
@@ -104,8 +98,34 @@ function navbar() {
         </div>
 
         <div className='space-x-7'>
-          <button className='bg-white text-blue-600 font-bold px-6 xl:px-8 py-1 xl:py-2' onClick={() => setIsClicked(!isClicked)}>Sign In</button>
-          <button className='font-bold text-white' onClick={() => setIsClicked2(!isClicked2)}>Sign Up </button>
+
+          {console.log(isSignIn)}
+
+          {
+            isSignIn ? (
+              <button className='font-bold text-white' onClick={() => {setIsSignIn(false)}}>
+                Sign Out
+              </button>
+            ) : (
+              <>
+                <button
+                  className='bg-white text-blue-600 font-bold px-6 xl:px-8 py-1 xl:py-2'
+                  onClick={() => setIsClicked(!isClicked)}
+                >
+                  Sign In
+                </button>
+                <button
+                  className='font-bold text-white'
+                  onClick={() => setIsClicked2(!isClicked2)}
+                >
+                  Sign Up
+                </button>
+              </>
+            )
+          }
+
+          {
+            isSignIn &&
           <button className='font-bold text-white'>
             <Link href='/dep/cart' >
               <AiOutlineShoppingCart className='inline-block px-1 text-3xl' />Cart
@@ -116,10 +136,12 @@ function navbar() {
               )}
             </Link>
           </button>
+          }
         </div>
 
 
-                
+        {
+            isSignIn &&
         <div className='relative inline-block h-[60px] md:h-[70px]' onMouseOver={() => setIsArrowUp(true)} onMouseOut={() => setIsArrowUp(false)}   >
           <button className='font-bold text-white h-full' onClick={() => setIsArrowUp(!isArrowUp)} > <CgProfile className='inline text-2xl' /> {isArrowUp ? <MdArrowDropUp className='inline text-2xl' /> : <MdArrowDropDown className='inline text-2xl' />} </button>
           {/* Drop Down Menu */}
@@ -139,7 +161,7 @@ function navbar() {
           }
           {/* Drop Down End */}
         </div>
-
+        }
 
 
       </div>
@@ -396,4 +418,3 @@ function navbar() {
 
 export default navbar
 
-// npm i @emotion/cache @emotion/react @emotion/server @emotion/styled

@@ -8,8 +8,9 @@ export const CartProvider = ({children}) => {
 
     const [cartItems, setCartItems] = useState([]);
     const [products, setProducts] = useState([]);
+    const [isSignIn, setIsSignIn] = useState(false);
 
-    const addToCart = (item) => {
+      const addToCart = (item) => {
 
             setCartItems((prevItems) => [...prevItems, item]);
       };
@@ -118,8 +119,11 @@ export const CartProvider = ({children}) => {
         fetchData();
       }, []);
 
+
+
+
     return (
-    <CartContext.Provider value={ {cartItems, addToCart, removeFromCart, totalQuantity, products, removeAll}}>
+    <CartContext.Provider value={ {cartItems, addToCart, removeFromCart, totalQuantity, products, removeAll, isSignIn, setIsSignIn}}>
         {children}
     </CartContext.Provider>
     );
