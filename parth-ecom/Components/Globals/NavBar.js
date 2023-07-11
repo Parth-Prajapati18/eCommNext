@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation';
 function navbar() {
 
   const router = useRouter();
-  const { totalQuantity, isSignIn, setIsSignIn } = useContext(CartContext);
+  const { totalQuantity, isSignIn, setIsSignIn, setEmail} = useContext(CartContext);
   const [isArrowUp, setIsArrowUp] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [isClicked2, setIsClicked2] = useState(false);
@@ -66,6 +66,7 @@ function navbar() {
       const response = await axios.post('/api/login', { username, password });
       if (response.status === 200) {
         const { token } = response.data;
+        setEmail(username);
         setIsSignIn(true);
         localStorage.setItem('token-PartheComm', token);
         setMsg(response.data.Message);

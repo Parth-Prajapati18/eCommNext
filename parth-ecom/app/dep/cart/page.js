@@ -7,8 +7,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 const CartPage = () => {
-
-  const { cartItems, removeFromCart, removeAll } = useContext(CartContext);
+  const { cartItems, removeFromCart, removeAll, email } = useContext(CartContext);
   const totalPrice = cartItems.reduce(
     (accumulator, item) => accumulator + item.price * item.quantity,
     0
@@ -17,11 +16,10 @@ const CartPage = () => {
   const totalAmount = totalPrice + tax;
   const router = useRouter();    
   const handleOrder = () => {
-
     //Email Order details
     const sendEmail = async () => {
       const emailData = {
-        email: 'parthb1806@gmail.com',
+        email: email,
         subject: 'Your order has been placed Successfully',
         message: `Hello, \nTotal: ${totalAmount} \nPlease show us this email and Pick up your items`
       };
@@ -31,24 +29,19 @@ const CartPage = () => {
       } catch (error) {
         console.error('Error sending email:', error);
     }
-  };
-    
+  };  
+    //Quantity - 1
     cartItems.map( async (item) => {
       try {
-        console.log("Item removed1:", item["id"])
         await axios.post('/api/updateProduct', {id: item["id"]})
-        console.log("Item removed:", item)
       } catch (error) {
         console.log("Error updating quantity:", error)
       }
-    });
-
+    })
     sendEmail();
     router.push('/dep/order'), 
-
     removeAll()
   };
-
 
   return (
     <div className="container mx-auto p-4">

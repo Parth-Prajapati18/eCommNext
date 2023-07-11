@@ -1,5 +1,6 @@
 "use client"
 import axios from 'axios';
+import { headers } from 'next/dist/client/components/headers';
 import React, { createContext, useState, useEffect } from 'react';
 
 export const CartContext = createContext();
@@ -9,9 +10,9 @@ export const CartProvider = ({children}) => {
     const [cartItems, setCartItems] = useState([]);
     const [products, setProducts] = useState([]);
     const [isSignIn, setIsSignIn] = useState(false);
+    const [email, setEmail] = useState(null);
 
       const addToCart = (item) => {
-
             setCartItems((prevItems) => [...prevItems, item]);
       };
     
@@ -104,11 +105,16 @@ export const CartProvider = ({children}) => {
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get('/api/products');
+            const token = localStorage.getItem("token-PartheComm");
+            const response = await axios.get('/api/products', {headers: {
+              authorization: `Bearer ${token}`
+            } });
     
             if (response.status === 200) {
               const products = response.data.message;
               console.log(products);
+              console.log("Parth")
+              console.log(response.data.userId);
               setProducts(products);
             }
           } catch (error) {
@@ -119,11 +125,8 @@ export const CartProvider = ({children}) => {
         fetchData();
       }, []);
 
-
-
-
-    return (
-    <CartContext.Provider value={ {cartItems, addToCart, removeFromCart, totalQuantity, products, removeAll, isSignIn, setIsSignIn}}>
+return (
+    <CartContext.Provider value={ {cartItems, addToCart, removeFromCart, totalQuantity, products, removeAll, isSignIn, setIsSignIn, email, setEmail}}>
         {children}
     </CartContext.Provider>
     );
