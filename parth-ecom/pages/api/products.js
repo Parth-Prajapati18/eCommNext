@@ -20,7 +20,7 @@ export default async function handler(req, res) {
         return res.status(500).json({ message: 'Server error' });
       }
       console.log(results);
-      return res.status(200).json({ message: results, userId: userId });
+      return res.status(200).json({ message: results, userId: decoded });
     });
   } catch (err) {
     console.error('Token verification error:', err);

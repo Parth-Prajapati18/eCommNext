@@ -112,8 +112,7 @@ export const CartProvider = ({children}) => {
     
             if (response.status === 200) {
               const products = response.data.message;
-              console.log(products);
-              console.log("Parth")
+              console.log(response);
               console.log(response.data.userId);
               setProducts(products);
             }
